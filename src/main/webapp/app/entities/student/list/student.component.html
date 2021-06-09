@@ -1,0 +1,180 @@
+<div>
+  <h2 id="page-heading" data-cy="StudentHeading">
+    <span jhiTranslate="learnMngtSysApp.student.home.title">Students</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="learnMngtSysApp.student.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-student"
+        [routerLink]="['/student/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="learnMngtSysApp.student.home.createLabel"> Create a new Student </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="students?.length === 0">
+    <span jhiTranslate="learnMngtSysApp.student.home.notFound">No students found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="students && students.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="lrn"><span jhiTranslate="learnMngtSysApp.student.lrn">Lrn</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="firstName">
+            <span jhiTranslate="learnMngtSysApp.student.firstName">First Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="lastName">
+            <span jhiTranslate="learnMngtSysApp.student.lastName">Last Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="birthDate">
+            <span jhiTranslate="learnMngtSysApp.student.birthDate">Birth Date</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="birthPlace">
+            <span jhiTranslate="learnMngtSysApp.student.birthPlace">Birth Place</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="contactNo">
+            <span jhiTranslate="learnMngtSysApp.student.contactNo">Contact No</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="address1">
+            <span jhiTranslate="learnMngtSysApp.student.address1">Address 1</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="address2">
+            <span jhiTranslate="learnMngtSysApp.student.address2">Address 2</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="city">
+            <span jhiTranslate="learnMngtSysApp.student.city">City</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="zipCode">
+            <span jhiTranslate="learnMngtSysApp.student.zipCode">Zip Code</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="country">
+            <span jhiTranslate="learnMngtSysApp.student.country">Country</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="fathersName">
+            <span jhiTranslate="learnMngtSysApp.student.fathersName">Fathers Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="fathersOccupation">
+            <span jhiTranslate="learnMngtSysApp.student.fathersOccupation">Fathers Occupation</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="mothersName">
+            <span jhiTranslate="learnMngtSysApp.student.mothersName">Mothers Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="mothersOccupation">
+            <span jhiTranslate="learnMngtSysApp.student.mothersOccupation">Mothers Occupation</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="guardianName">
+            <span jhiTranslate="learnMngtSysApp.student.guardianName">Guardian Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="gender.id">
+            <span jhiTranslate="learnMngtSysApp.student.gender">Gender</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="parentCivilStatus.id">
+            <span jhiTranslate="learnMngtSysApp.student.parentCivilStatus">Parent Civil Status</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="course.id">
+            <span jhiTranslate="learnMngtSysApp.student.course">Course</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/student', student.id, 'view']">{{ student.id }}</a>
+          </td>
+          <td>{{ student.lrn }}</td>
+          <td>{{ student.firstName }}</td>
+          <td>{{ student.lastName }}</td>
+          <td>{{ student.birthDate | formatMediumDatetime }}</td>
+          <td>{{ student.birthPlace }}</td>
+          <td>{{ student.contactNo }}</td>
+          <td>{{ student.address1 }}</td>
+          <td>{{ student.address2 }}</td>
+          <td>{{ student.city }}</td>
+          <td>{{ student.zipCode }}</td>
+          <td>{{ student.country }}</td>
+          <td>{{ student.fathersName }}</td>
+          <td>{{ student.fathersOccupation }}</td>
+          <td>{{ student.mothersName }}</td>
+          <td>{{ student.mothersOccupation }}</td>
+          <td>{{ student.guardianName }}</td>
+          <td>
+            <div *ngIf="student.gender">
+              <a [routerLink]="['/code-groups', student.gender?.id, 'view']">{{ student.gender?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="student.parentCivilStatus">
+              <a [routerLink]="['/code-groups', student.parentCivilStatus?.id, 'view']">{{ student.parentCivilStatus?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="student.course">
+              <a [routerLink]="['/code-groups', student.course?.id, 'view']">{{ student.course?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/student', student.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/student', student.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(student)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="students && students.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

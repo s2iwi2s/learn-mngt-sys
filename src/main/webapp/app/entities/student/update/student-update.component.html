@@ -1,0 +1,223 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-student-heading" data-cy="StudentCreateUpdateHeading" jhiTranslate="learnMngtSysApp.student.home.createOrEditLabel">
+        Create or edit a Student
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.lrn" for="field_lrn">Lrn</label>
+          <input type="text" class="form-control" name="lrn" id="field_lrn" data-cy="lrn" formControlName="lrn" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.firstName" for="field_firstName">First Name</label>
+          <input type="text" class="form-control" name="firstName" id="field_firstName" data-cy="firstName" formControlName="firstName" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.lastName" for="field_lastName">Last Name</label>
+          <input type="text" class="form-control" name="lastName" id="field_lastName" data-cy="lastName" formControlName="lastName" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.birthDate" for="field_birthDate">Birth Date</label>
+          <div class="d-flex">
+            <input
+              id="field_birthDate"
+              data-cy="birthDate"
+              type="datetime-local"
+              class="form-control"
+              name="birthDate"
+              formControlName="birthDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.birthPlace" for="field_birthPlace">Birth Place</label>
+          <input
+            type="text"
+            class="form-control"
+            name="birthPlace"
+            id="field_birthPlace"
+            data-cy="birthPlace"
+            formControlName="birthPlace"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.contactNo" for="field_contactNo">Contact No</label>
+          <input type="text" class="form-control" name="contactNo" id="field_contactNo" data-cy="contactNo" formControlName="contactNo" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.address1" for="field_address1">Address 1</label>
+          <input type="text" class="form-control" name="address1" id="field_address1" data-cy="address1" formControlName="address1" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.address2" for="field_address2">Address 2</label>
+          <input type="text" class="form-control" name="address2" id="field_address2" data-cy="address2" formControlName="address2" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.city" for="field_city">City</label>
+          <input type="text" class="form-control" name="city" id="field_city" data-cy="city" formControlName="city" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.zipCode" for="field_zipCode">Zip Code</label>
+          <input type="text" class="form-control" name="zipCode" id="field_zipCode" data-cy="zipCode" formControlName="zipCode" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.country" for="field_country">Country</label>
+          <input type="text" class="form-control" name="country" id="field_country" data-cy="country" formControlName="country" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.fathersName" for="field_fathersName">Fathers Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fathersName"
+            id="field_fathersName"
+            data-cy="fathersName"
+            formControlName="fathersName"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.fathersOccupation" for="field_fathersOccupation"
+            >Fathers Occupation</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="fathersOccupation"
+            id="field_fathersOccupation"
+            data-cy="fathersOccupation"
+            formControlName="fathersOccupation"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.mothersName" for="field_mothersName">Mothers Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="mothersName"
+            id="field_mothersName"
+            data-cy="mothersName"
+            formControlName="mothersName"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.mothersOccupation" for="field_mothersOccupation"
+            >Mothers Occupation</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="mothersOccupation"
+            id="field_mothersOccupation"
+            data-cy="mothersOccupation"
+            formControlName="mothersOccupation"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.guardianName" for="field_guardianName"
+            >Guardian Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="guardianName"
+            id="field_guardianName"
+            data-cy="guardianName"
+            formControlName="guardianName"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.gender" for="field_gender">Gender</label>
+          <select class="form-control" id="field_gender" data-cy="gender" name="gender" formControlName="gender">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="codeGroupsOption.id === editForm.get('gender')!.value?.id ? editForm.get('gender')!.value : codeGroupsOption"
+              *ngFor="let codeGroupsOption of gendersCollection; trackBy: trackCodeGroupsById"
+            >
+              {{ codeGroupsOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.parentCivilStatus" for="field_parentCivilStatus"
+            >Parent Civil Status</label
+          >
+          <select
+            class="form-control"
+            id="field_parentCivilStatus"
+            data-cy="parentCivilStatus"
+            name="parentCivilStatus"
+            formControlName="parentCivilStatus"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                codeGroupsOption.id === editForm.get('parentCivilStatus')!.value?.id
+                  ? editForm.get('parentCivilStatus')!.value
+                  : codeGroupsOption
+              "
+              *ngFor="let codeGroupsOption of parentCivilStatusesCollection; trackBy: trackCodeGroupsById"
+            >
+              {{ codeGroupsOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.student.course" for="field_course">Course</label>
+          <select class="form-control" id="field_course" data-cy="course" name="course" formControlName="course">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="codeGroupsOption.id === editForm.get('course')!.value?.id ? editForm.get('course')!.value : codeGroupsOption"
+              *ngFor="let codeGroupsOption of coursesCollection; trackBy: trackCodeGroupsById"
+            >
+              {{ codeGroupsOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

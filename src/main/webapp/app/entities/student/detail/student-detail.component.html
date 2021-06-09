@@ -1,0 +1,110 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="student">
+      <h2 data-cy="studentDetailsHeading"><span jhiTranslate="learnMngtSysApp.student.detail.title">Student</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ student.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.lrn">Lrn</span></dt>
+        <dd>
+          <span>{{ student.lrn }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.firstName">First Name</span></dt>
+        <dd>
+          <span>{{ student.firstName }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.lastName">Last Name</span></dt>
+        <dd>
+          <span>{{ student.lastName }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.birthDate">Birth Date</span></dt>
+        <dd>
+          <span>{{ student.birthDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.birthPlace">Birth Place</span></dt>
+        <dd>
+          <span>{{ student.birthPlace }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.contactNo">Contact No</span></dt>
+        <dd>
+          <span>{{ student.contactNo }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.address1">Address 1</span></dt>
+        <dd>
+          <span>{{ student.address1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.address2">Address 2</span></dt>
+        <dd>
+          <span>{{ student.address2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.city">City</span></dt>
+        <dd>
+          <span>{{ student.city }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.zipCode">Zip Code</span></dt>
+        <dd>
+          <span>{{ student.zipCode }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.country">Country</span></dt>
+        <dd>
+          <span>{{ student.country }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.fathersName">Fathers Name</span></dt>
+        <dd>
+          <span>{{ student.fathersName }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.fathersOccupation">Fathers Occupation</span></dt>
+        <dd>
+          <span>{{ student.fathersOccupation }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.mothersName">Mothers Name</span></dt>
+        <dd>
+          <span>{{ student.mothersName }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.mothersOccupation">Mothers Occupation</span></dt>
+        <dd>
+          <span>{{ student.mothersOccupation }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.guardianName">Guardian Name</span></dt>
+        <dd>
+          <span>{{ student.guardianName }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.gender">Gender</span></dt>
+        <dd>
+          <div *ngIf="student.gender">
+            <a [routerLink]="['/code-groups', student.gender?.id, 'view']">{{ student.gender?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.parentCivilStatus">Parent Civil Status</span></dt>
+        <dd>
+          <div *ngIf="student.parentCivilStatus">
+            <a [routerLink]="['/code-groups', student.parentCivilStatus?.id, 'view']">{{ student.parentCivilStatus?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.student.course">Course</span></dt>
+        <dd>
+          <div *ngIf="student.course">
+            <a [routerLink]="['/code-groups', student.course?.id, 'view']">{{ student.course?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/student', student.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

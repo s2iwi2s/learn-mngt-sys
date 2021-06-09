@@ -1,0 +1,59 @@
+// jhipster jdl jhipster-jdl.jdl
+
+application {
+  config {
+    baseName LearnMngtSys
+    packageName com.s2i.lms
+    authenticationType jwt
+    prodDatabaseType postgresql
+    buildTool maven
+    clientFramework angular
+  }
+  entities *
+}
+
+entity Student {
+	lrn String,
+    firstName String,
+    lastName String,
+	birthDate Instant,
+    birthPlace String,
+    contactNo String,
+    address1 String,
+    address2 String,
+    city String,
+    zipCode String,
+    country String,
+    fathersName String,
+    fathersOccupation String,
+    mothersName String,
+    mothersOccupation String,
+    guardianName String
+
+}
+
+entity CodeGroups {
+	code String,
+    value String,
+    description String,
+    json String,
+	priority Integer
+}
+
+relationship OneToOne {
+	Student{gender} to CodeGroups,
+	Student{parentCivilStatus} to CodeGroups,
+	Student{course} to CodeGroups
+}
+
+// Set pagination options
+paginate Student, CodeGroups with pagination
+
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with component

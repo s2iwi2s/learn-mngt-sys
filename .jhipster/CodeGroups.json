@@ -1,0 +1,36 @@
+{
+  "name": "CodeGroups",
+  "fields": [
+    {
+      "fieldName": "code",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "value",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "json",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "priority",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "code_groups",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["LearnMngtSys"],
+  "changelogDate": "20210609165408"
+}

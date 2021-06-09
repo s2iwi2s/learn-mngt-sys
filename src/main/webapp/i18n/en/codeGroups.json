@@ -1,0 +1,28 @@
+{
+  "learnMngtSysApp": {
+    "codeGroups": {
+      "home": {
+        "title": "Code Groups",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Code Groups",
+        "createOrEditLabel": "Create or edit a Code Groups",
+        "notFound": "No Code Groups found"
+      },
+      "created": "A new Code Groups is created with identifier {{ param }}",
+      "updated": "A Code Groups is updated with identifier {{ param }}",
+      "deleted": "A Code Groups is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Code Groups {{ id }}?"
+      },
+      "detail": {
+        "title": "Code Groups"
+      },
+      "id": "ID",
+      "code": "Code",
+      "value": "Value",
+      "description": "Description",
+      "json": "Json",
+      "priority": "Priority"
+    }
+  }
+}

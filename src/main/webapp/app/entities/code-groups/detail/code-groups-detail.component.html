@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="codeGroups">
+      <h2 data-cy="codeGroupsDetailsHeading"><span jhiTranslate="learnMngtSysApp.codeGroups.detail.title">Code Groups</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ codeGroups.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.codeGroups.code">Code</span></dt>
+        <dd>
+          <span>{{ codeGroups.code }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.codeGroups.value">Value</span></dt>
+        <dd>
+          <span>{{ codeGroups.value }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.codeGroups.description">Description</span></dt>
+        <dd>
+          <span>{{ codeGroups.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.codeGroups.json">Json</span></dt>
+        <dd>
+          <span>{{ codeGroups.json }}</span>
+        </dd>
+        <dt><span jhiTranslate="learnMngtSysApp.codeGroups.priority">Priority</span></dt>
+        <dd>
+          <span>{{ codeGroups.priority }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/code-groups', codeGroups.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

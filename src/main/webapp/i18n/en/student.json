@@ -1,0 +1,42 @@
+{
+  "learnMngtSysApp": {
+    "student": {
+      "home": {
+        "title": "Students",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Student",
+        "createOrEditLabel": "Create or edit a Student",
+        "notFound": "No Students found"
+      },
+      "created": "A new Student is created with identifier {{ param }}",
+      "updated": "A Student is updated with identifier {{ param }}",
+      "deleted": "A Student is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Student {{ id }}?"
+      },
+      "detail": {
+        "title": "Student"
+      },
+      "id": "ID",
+      "lrn": "Lrn",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "birthDate": "Birth Date",
+      "birthPlace": "Birth Place",
+      "contactNo": "Contact No",
+      "address1": "Address 1",
+      "address2": "Address 2",
+      "city": "City",
+      "zipCode": "Zip Code",
+      "country": "Country",
+      "fathersName": "Fathers Name",
+      "fathersOccupation": "Fathers Occupation",
+      "mothersName": "Mothers Name",
+      "mothersOccupation": "Mothers Occupation",
+      "guardianName": "Guardian Name",
+      "gender": "Gender",
+      "parentCivilStatus": "Parent Civil Status",
+      "course": "Course"
+    }
+  }
+}
