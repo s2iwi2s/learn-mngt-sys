@@ -1,11 +1,8 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2
-        id="jhi-image-store-heading"
-        data-cy="ImageStoreCreateUpdateHeading"
-        jhiTranslate="learnMngtSysApp.imageStore.home.createOrEditLabel"
-      >
+      <h2 id="jhi-image-store-heading" data-cy="ImageStoreCreateUpdateHeading"
+        jhiTranslate="learnMngtSysApp.imageStore.home.createOrEditLabel">
         Create or edit a Image Store
       </h2>
 
@@ -14,14 +11,15 @@
 
         <div class="form-group" [hidden]="editForm.get('id')!.value == null">
           <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id"
+            [readonly]="true" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="learnMngtSysApp.imageStore.name" for="field_upload">Upload</label>
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.imageStore.name"
+            for="field_upload">Upload</label>
           <input type="file" id="field_upload" (change)="onFileSelected($event)" />
         </div>
-
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="learnMngtSysApp.imageStore.name" for="field_name">Name</label>
@@ -29,22 +27,17 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="learnMngtSysApp.imageStore.description" for="field_description"
-            >Description</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            name="description"
-            id="field_description"
-            data-cy="description"
-            formControlName="description"
-          />
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.imageStore.description"
+            for="field_description">Description</label>
+          <input type="text" class="form-control" name="description" id="field_description" data-cy="description"
+            formControlName="description" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="learnMngtSysApp.imageStore.base64" for="field_base64">Base 64</label>
-          <input type="text" class="form-control" name="base64" id="field_base64" data-cy="base64" formControlName="base64" />
+          <label class="form-control-label" jhiTranslate="learnMngtSysApp.imageStore.store"
+            for="field_store">Store</label>
+          <input type="text" class="form-control" name="store" id="field_store" data-cy="store"
+            formControlName="store" />
         </div>
       </div>
 
@@ -53,13 +46,8 @@
           <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
+        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
           <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
       </div>

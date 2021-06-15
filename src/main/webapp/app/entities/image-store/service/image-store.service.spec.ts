@@ -24,7 +24,7 @@ describe('Service Tests', () => {
         id: 0,
         name: 'AAAAAAA',
         description: 'AAAAAAA',
-        base64: 'AAAAAAA',
+        store: 'AAAAAAA',
       };
     });
 
@@ -62,7 +62,7 @@ describe('Service Tests', () => {
             id: 1,
             name: 'BBBBBB',
             description: 'BBBBBB',
-            base64: 'BBBBBB',
+            store: 'BBBBBB',
           },
           elemDefault
         );
@@ -80,7 +80,7 @@ describe('Service Tests', () => {
         const patchObject = Object.assign(
           {
             description: 'BBBBBB',
-            base64: 'BBBBBB',
+            store: 'BBBBBB',
           },
           new ImageStore()
         );
@@ -102,7 +102,7 @@ describe('Service Tests', () => {
             id: 1,
             name: 'BBBBBB',
             description: 'BBBBBB',
-            base64: 'BBBBBB',
+            store: 'BBBBBB',
           },
           elemDefault
         );

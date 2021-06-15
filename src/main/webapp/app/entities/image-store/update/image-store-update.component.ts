@@ -20,6 +20,7 @@ export class ImageStoreUpdateComponent implements OnInit {
     id: [],
     name: [],
     description: [],
+    store: [],
     base64: []
   })
 
@@ -30,28 +31,7 @@ export class ImageStoreUpdateComponent implements OnInit {
       this.updateForm(imageStore)
     })
   }
-  onFileSelected (event: any): void {
-    console.log('event.target.files[0]:', event.target.files[0])
-    const fileName: string = event.target.files[0].name
-    console.log(`fileName=${fileName}`);
-    this.convertFile(event.target.files[0]).subscribe(base64Value => {
-      console.log('values', {
-        base64: base64Value,
-        name: fileName
-      })
-      this.editForm.patchValue({
-        base64: base64Value,
-        name: event.target.files[0].name
-      })
-    })
-  }
-  convertFile (file: File): Observable<string> {
-    const result = new ReplaySubject<string>(1)
-    const reader = new FileReader()
-    reader.readAsBinaryString(file)
-    reader.onload = event => result.next(btoa(event.target!.result!.toString()))
-    return result
-  }
+
   previousState (): void {
     window.history.back()
   }
@@ -64,6 +44,30 @@ export class ImageStoreUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.imageStoreService.create(imageStore))
     }
+  }
+
+  onFileSelected (event: any): void {
+    console.log('event.target.files[0]:', event.target.files[0])
+    const fileName: string = event.target.files[0].name
+    console.log(`fileName=${fileName}`)
+    this.convertFile(event.target.files[0]).subscribe(base64Value => {
+      console.log('values', {
+        base64: base64Value,
+        name: fileName
+      })
+      this.editForm.patchValue({
+        base64: base64Value,
+        name: event.target.files[0].name
+      })
+    })
+  }
+
+  protected convertFile (file: File): Observable<string> {
+    const result = new ReplaySubject<string>(1)
+    const reader = new FileReader()
+    reader.readAsBinaryString(file)
+    reader.onload = event => result.next(btoa(event.target!.result!.toString()))
+    return result
   }
 
   protected subscribeToSaveResponse (result: Observable<HttpResponse<IImageStore>>): void {
@@ -90,7 +94,7 @@ export class ImageStoreUpdateComponent implements OnInit {
       id: imageStore.id,
       name: imageStore.name,
       description: imageStore.description,
-      base64: imageStore.base64
+      store: imageStore.store
     })
   }
 
@@ -100,7 +104,7 @@ export class ImageStoreUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       name: this.editForm.get(['name'])!.value,
       description: this.editForm.get(['description'])!.value,
-      base64: this.editForm.get(['base64'])!.value
+      store: this.editForm.get(['store'])!.value
     }
   }
 }

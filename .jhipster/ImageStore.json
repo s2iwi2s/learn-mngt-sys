@@ -1,12 +1,8 @@
 {
-  "name": "CodeGroups",
+  "name": "ImageStore",
   "fields": [
     {
-      "fieldName": "code",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "value",
+      "fieldName": "name",
       "fieldType": "String"
     },
     {
@@ -14,23 +10,19 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "json",
+      "fieldName": "store",
       "fieldType": "String"
-    },
-    {
-      "fieldName": "priority",
-      "fieldType": "Integer"
     }
   ],
   "relationships": [],
-  "entityTableName": "code_groups",
+  "entityTableName": "image_store",
   "dto": "mapstruct",
-  "pagination": "pagination",
+  "pagination": "no",
   "service": "serviceImpl",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
   "applications": ["LearnMngtSys"],
-  "changelogDate": "20210615211117"
+  "changelogDate": "20210615211118"
 }

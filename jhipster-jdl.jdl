@@ -45,7 +45,7 @@ entity CodeGroups {
 entity ImageStore {
 	name String,
     description String,
-    base64 String
+    store String
 }
 
 relationship OneToOne {

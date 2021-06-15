@@ -42,6 +42,6 @@
     "nativeLanguage": "en",
     "creationTimestamp": 1623257528109,
     "jwtSecretKey": "NDcwNDc1NWUyYzIxMDU4MTZlMDhlZmQ5MWIyYzA0NmMyZjMxODMyNGIwYzBkZTM5OGEwZDA3ZDc0YjYxNmZhNDU1NjhmZWRlMjE0MDdjNTM2MjFkMzMyNWQ5NDUzZjYxMTdiNzZkNGM0MmFiODg1MjU4NDAyM2I5ZDFkOGEzYmU=",
-    "lastLiquibaseTimestamp": 1623782986000
+    "lastLiquibaseTimestamp": 1623791478000
   }
 }
