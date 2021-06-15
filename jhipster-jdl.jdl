@@ -6,6 +6,7 @@ application {
     packageName com.s2i.lms
     authenticationType jwt
     prodDatabaseType postgresql
+    devDatabaseType postgresql
     buildTool maven
     clientFramework angular
   }
@@ -40,11 +41,20 @@ entity CodeGroups {
 	priority Integer
 }
 
+
+entity ImageStore {
+	name String,
+    description String,
+    base64 String
+}
+
 relationship OneToOne {
 	Student{gender} to CodeGroups,
 	Student{parentCivilStatus} to CodeGroups,
 	Student{course} to CodeGroups
 }
+
+
 
 // Set pagination options
 paginate Student, CodeGroups with pagination
