@@ -8,6 +8,7 @@ import { finalize } from 'rxjs/operators'
 
 import { IImageStore, ImageStore } from '../image-store.model'
 import { ImageStoreService } from '../service/image-store.service'
+import { ExportService } from '../service/export.service'
 
 @Component({
   selector: 'jhi-image-store-update',
@@ -24,19 +25,21 @@ export class ImageStoreUpdateComponent implements OnInit {
     base64: []
   })
 
-  constructor (protected imageStoreService: ImageStoreService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(protected imageStoreService: ImageStoreService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder) { }
 
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ imageStore }) => {
       this.updateForm(imageStore)
     })
   }
 
-  previousState (): void {
+  previousState(): void {
     window.history.back()
   }
 
-  save (): void {
+  save(): void {
     this.isSaving = true
     const imageStore = this.createFromForm()
     if (imageStore.id !== undefined) {
@@ -46,7 +49,7 @@ export class ImageStoreUpdateComponent implements OnInit {
     }
   }
 
-  onFileSelected (event: any): void {
+  onFileSelected(event: any): void {
     console.log('event.target.files[0]:', event.target.files[0])
     const fileName: string = event.target.files[0].name
     console.log(`fileName=${fileName}`)
@@ -62,7 +65,7 @@ export class ImageStoreUpdateComponent implements OnInit {
     })
   }
 
-  protected convertFile (file: File): Observable<string> {
+  protected convertFile(file: File): Observable<string> {
     const result = new ReplaySubject<string>(1)
     const reader = new FileReader()
     reader.readAsBinaryString(file)
@@ -70,26 +73,26 @@ export class ImageStoreUpdateComponent implements OnInit {
     return result
   }
 
-  protected subscribeToSaveResponse (result: Observable<HttpResponse<IImageStore>>): void {
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IImageStore>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
       () => this.onSaveSuccess(),
       () => this.onSaveError()
     )
   }
 
-  protected onSaveSuccess (): void {
+  protected onSaveSuccess(): void {
     this.previousState()
   }
 
-  protected onSaveError (): void {
+  protected onSaveError(): void {
     // Api for inheritance.
   }
 
-  protected onSaveFinalize (): void {
+  protected onSaveFinalize(): void {
     this.isSaving = false
   }
 
-  protected updateForm (imageStore: IImageStore): void {
+  protected updateForm(imageStore: IImageStore): void {
     this.editForm.patchValue({
       id: imageStore.id,
       name: imageStore.name,
@@ -98,7 +101,7 @@ export class ImageStoreUpdateComponent implements OnInit {
     })
   }
 
-  protected createFromForm (): IImageStore {
+  protected createFromForm(): IImageStore {
     return {
       ...new ImageStore(),
       id: this.editForm.get(['id'])!.value,

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit} from '@angular/core';
+import {HttpResponse} from '@angular/common/http';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-import { IImageStore } from '../image-store.model';
-import { ImageStoreService } from '../service/image-store.service';
-import { ImageStoreDeleteDialogComponent } from '../delete/image-store-delete-dialog.component';
+import {IImageStore} from '../image-store.model';
+import {ImageStoreService} from '../service/image-store.service';
+import {ImageStoreDeleteDialogComponent} from '../delete/image-store-delete-dialog.component';
+import {ExportService} from "app/entities/image-store/service/export.service";
 
 @Component({
   selector: 'jhi-image-store',
@@ -14,7 +15,10 @@ export class ImageStoreComponent implements OnInit {
   imageStores?: IImageStore[];
   isLoading = false;
 
-  constructor(protected imageStoreService: ImageStoreService, protected modalService: NgbModal) {}
+  constructor(protected imageStoreService: ImageStoreService,
+              protected modalService: NgbModal,
+              protected exportService: ExportService) {
+  }
 
   loadAll(): void {
     this.isLoading = true;
@@ -39,7 +43,7 @@ export class ImageStoreComponent implements OnInit {
   }
 
   delete(imageStore: IImageStore): void {
-    const modalRef = this.modalService.open(ImageStoreDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    const modalRef = this.modalService.open(ImageStoreDeleteDialogComponent, {size: 'lg', backdrop: 'static'});
     modalRef.componentInstance.imageStore = imageStore;
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
@@ -47,5 +51,9 @@ export class ImageStoreComponent implements OnInit {
         this.loadAll();
       }
     });
+  }
+
+  doExport(): void {
+    this.exportService.export(['1', '2', '3', '4', '5'])
   }
 }

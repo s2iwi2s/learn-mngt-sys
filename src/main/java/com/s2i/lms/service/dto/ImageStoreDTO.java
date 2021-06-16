@@ -8,6 +8,20 @@ import java.util.Objects;
  */
 public class ImageStoreDTO implements Serializable {
 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public ImageStoreDTO() {
+    }
+
+    public ImageStoreDTO(Long id, String name, String base64) {
+        this.id = id;
+        this.name = name;
+        this.base64 = base64;
+    }
+
     private Long id;
 
     private String name;
@@ -15,6 +29,8 @@ public class ImageStoreDTO implements Serializable {
     private String description;
 
     private String store;
+
+    private String base64;
 
     public Long getId() {
         return id;
@@ -46,6 +62,14 @@ public class ImageStoreDTO implements Serializable {
 
     public void setStore(String store) {
         this.store = store;
+    }
+
+    public String getBase64() {
+        return base64;
+    }
+
+    public void setBase64(String base64) {
+        this.base64 = base64;
     }
 
     @Override

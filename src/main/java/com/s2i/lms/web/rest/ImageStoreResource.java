@@ -6,6 +6,7 @@ import com.s2i.lms.service.dto.ImageStoreDTO;
 import com.s2i.lms.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -67,7 +68,7 @@ public class ImageStoreResource {
      * @param imageStoreDTO the imageStoreDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated imageStoreDTO,
      * or with status {@code 400 (Bad Request)} if the imageStoreDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the imageStoreDTO couldn't be updated.
+     * or with status {@code 500 (Internal Server Error)} if the imageStoreDTO couldn"t be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/image-stores/{id}")
@@ -102,7 +103,7 @@ public class ImageStoreResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated imageStoreDTO,
      * or with status {@code 400 (Bad Request)} if the imageStoreDTO is not valid,
      * or with status {@code 404 (Not Found)} if the imageStoreDTO is not found,
-     * or with status {@code 500 (Internal Server Error)} if the imageStoreDTO couldn't be updated.
+     * or with status {@code 500 (Internal Server Error)} if the imageStoreDTO couldn"t be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/image-stores/{id}", consumes = "application/merge-patch+json")
@@ -168,5 +169,24 @@ public class ImageStoreResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/image-stores/image/{id}")
+    public ImageStoreDTO findImage(@PathVariable String id) {
+        log.debug("REST request to get all ImageStores");
+
+        return new ImageStoreDTO(1L, "test" + id, "JVBERi0xLjcKCjEgMCBvYmogICUgZW50cnkgcG9pbnQKPDwKICAvVHlwZSAvQ2F0YWxvZwog" +
+        	    "IC9QYWdlcyAyIDAgUgo+PgplbmRvYmoKCjIgMCBvYmoKPDwKICAvVHlwZSAvUGFnZXMKICAv" +
+        	    "TWVkaWFCb3ggWyAwIDAgMjAwIDIwMCBdCiAgL0NvdW50IDEKICAvS2lkcyBbIDMgMCBSIF0K" +
+        	    "Pj4KZW5kb2JqCgozIDAgb2JqCjw8CiAgL1R5cGUgL1BhZ2UKICAvUGFyZW50IDIgMCBSCiAg" +
+        	    "L1Jlc291cmNlcyA8PAogICAgL0ZvbnQgPDwKICAgICAgL0YxIDQgMCBSIAogICAgPj4KICA+" +
+        	    "PgogIC9Db250ZW50cyA1IDAgUgo+PgplbmRvYmoKCjQgMCBvYmoKPDwKICAvVHlwZSAvRm9u" +
+        	    "dAogIC9TdWJ0eXBlIC9UeXBlMQogIC9CYXNlRm9udCAvVGltZXMtUm9tYW4KPj4KZW5kb2Jq" +
+        	    "Cgo1IDAgb2JqICAlIHBhZ2UgY29udGVudAo8PAogIC9MZW5ndGggNDQKPj4Kc3RyZWFtCkJU" +
+        	    "CjcwIDUwIFRECi9GMSAxMiBUZgooSGVsbG8sIHdvcmxkISkgVGoKRVQKZW5kc3RyZWFtCmVu" +
+        	    "ZG9iagoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDEwIDAwMDAwIG4g" +
+        	    "CjAwMDAwMDAwNzkgMDAwMDAgbiAKMDAwMDAwMDE3MyAwMDAwMCBuIAowMDAwMDAwMzAxIDAw" +
+        	    "MDAwIG4gCjAwMDAwMDAzODAgMDAwMDAgbiAKdHJhaWxlcgo8PAogIC9TaXplIDYKICAvUm9v" +
+        	    "dCAxIDAgUgo+PgpzdGFydHhyZWYKNDkyCiUlRU9G");
     }
 }
