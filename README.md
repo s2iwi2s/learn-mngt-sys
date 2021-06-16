@@ -1,5 +1,7 @@
 # LearnMngtSys
 
+---
+
 ### JHipster and Docker commands
 
 ```
@@ -11,6 +13,24 @@ docker compose -f src/main/docker/jhipster-registry.yml up
 docker compose -f src/main/docker/jhipster-control-center.yml up -d
 docker compose -f src/main/docker/app.yml up --remove-orphans
 ```
+---
+### Compile and deploy your jhipster project, you can use these commands:
+```editorconfig
+mvnw package -Pprod verify jib:dockerBuild -DskipTests
+docker compose -f src/main/docker/app.yml up
+```
+---
+### Building docker image with jhipster monolith app and pushing to my dockerhub
+1. Login to your new registry with command : docker login
+2. Tag your image to push using : docker tag lms s2iwi2s/lms2:latest
+3. Push the image using : docker push s2iwi2s/lms2:latest
+```editorconfig
+docker login
+docker tag lms s2iwi2s/lms2:latest
+docker push s2iwi2s/lms2:latest
+```
+---
+
 
 This application was generated using JHipster 7.0.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.0.1](https://www.jhipster.tech/documentation-archive/v7.0.1).
 

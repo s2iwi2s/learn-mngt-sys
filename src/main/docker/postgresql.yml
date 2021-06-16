@@ -3,8 +3,8 @@ version: '3.8'
 services:
   learnmngtsys-postgresql:
     image: postgres:13.2
-    # volumes:
-    #   - ~/volumes/jhipster/LearnMngtSys/postgresql/:/var/lib/postgresql/data/
+    volumes:
+      - ~/volumes/jhipster/LearnMngtSys/postgresql/:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=LearnMngtSys
       - POSTGRES_PASSWORD=
