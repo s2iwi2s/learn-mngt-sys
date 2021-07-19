@@ -14,10 +14,12 @@ services:
     # remove the "127.0.0.1:" prefix
     ports:
       - 127.0.0.1:8080:8080
+    networks:
+        - my-network
   learnmngtsys-postgresql:
     image: postgres:13.2
-    # volumes:
-    #   - ~/volumes/jhipster/LearnMngtSys/postgresql/:/var/lib/postgresql/data/
+    volumes:
+      - ~/volumes/jhipster/LearnMngtSys/postgresql/:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=LearnMngtSys
       - POSTGRES_PASSWORD=
@@ -26,3 +28,8 @@ services:
     # remove the "127.0.0.1:" prefix
     ports:
       - 127.0.0.1:5432:5432
+    networks:
+        - my-network
+networks:
+  my-network:
+    external: true

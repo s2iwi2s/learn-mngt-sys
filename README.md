@@ -12,7 +12,17 @@ docker compose -f src/main/docker/postgresql.yml up -d
 docker compose -f src/main/docker/jhipster-registry.yml up
 docker compose -f src/main/docker/jhipster-control-center.yml up -d
 docker compose -f src/main/docker/app.yml up --remove-orphans
+
+docker-compose -f src\main\docker\postgresql.yml up --remove-orphans
+
+docker network create my-network
 ```
+
+### When running your application specify the network:
+```text
+docker run --network=my-network s2iwi2s/lms
+```
+
 ---
 ### Compile and deploy your jhipster project, you can use these commands:
 ```editorconfig
@@ -22,12 +32,12 @@ docker compose -f src/main/docker/app.yml up
 ---
 ### Building docker image with jhipster monolith app and pushing to my dockerhub
 1. Login to your new registry with command : docker login
-2. Tag your image to push using : docker tag lms s2iwi2s/lms2:latest
-3. Push the image using : docker push s2iwi2s/lms2:latest
+2. Tag your image to push using : docker tag learnmngtsys s2iwi2s/lms:latest
+3. Push the image using : docker push s2iwi2s/lms:latest
 ```editorconfig
 docker login
-docker tag lms s2iwi2s/lms2:latest
-docker push s2iwi2s/lms2:latest
+docker tag learnmngtsys s2iwi2s/lms:latest
+docker push s2iwi2s/lms:latest
 ```
 ---
 

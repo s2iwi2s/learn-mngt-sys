@@ -1,9 +1,13 @@
 package com.s2i.lms.service;
 
-import com.s2i.lms.service.dto.StudentDTO;
+import java.util.List;
 import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import com.s2i.lms.service.dto.ReportResponseDTO;
+import com.s2i.lms.service.dto.StudentDTO;
 
 /**
  * Service Interface for managing {@link com.s2i.lms.domain.Student}.
@@ -47,4 +51,9 @@ public interface StudentService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+    
+    List<StudentDTO> findAll();
+    
+    
+    ReportResponseDTO getReportResponseDTO();
 }

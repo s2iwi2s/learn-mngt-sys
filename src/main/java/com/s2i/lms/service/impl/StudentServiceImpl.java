@@ -3,8 +3,11 @@ package com.s2i.lms.service.impl;
 import com.s2i.lms.domain.Student;
 import com.s2i.lms.repository.StudentRepository;
 import com.s2i.lms.service.StudentService;
+import com.s2i.lms.service.dto.ReportResponseDTO;
 import com.s2i.lms.service.dto.StudentDTO;
 import com.s2i.lms.service.mapper.StudentMapper;
+
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,4 +77,14 @@ public class StudentServiceImpl implements StudentService {
         log.debug("Request to delete Student : {}", id);
         studentRepository.deleteById(id);
     }
+
+	@Override
+	public List<StudentDTO> findAll() {
+		return studentMapper.toDto(studentRepository.findAll());
+	}
+
+	@Override
+	public ReportResponseDTO getReportResponseDTO() {
+		return new StudentReportImpl(this.studentRepository).getReportResponseDTO();
+	}
 }

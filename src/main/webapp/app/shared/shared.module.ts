@@ -25,7 +25,7 @@ import { ItemCountComponent } from './pagination/item-count.component';
     FormatMediumDatePipe,
     SortByDirective,
     SortDirective,
-    ItemCountComponent,
+    ItemCountComponent
   ],
   exports: [
     SharedLibsModule,
@@ -39,7 +39,7 @@ import { ItemCountComponent } from './pagination/item-count.component';
     FormatMediumDatePipe,
     SortByDirective,
     SortDirective,
-    ItemCountComponent,
+    ItemCountComponent
   ],
 })
-export class SharedModule {}
+export class SharedModule { }
