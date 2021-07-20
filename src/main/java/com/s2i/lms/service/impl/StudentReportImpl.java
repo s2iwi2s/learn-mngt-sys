@@ -33,13 +33,8 @@ public class StudentReportImpl extends AbstractReport<Student> {
     }
 
     @Override
-    public String[] getHeader() {
-        return new String[] {
-            "ID",
-            "LRN",
-            "Birth Place",
-            "Birth Date"
-        };
+    public int getHeaderLength(){
+        return 4;
     }
 
     @Override

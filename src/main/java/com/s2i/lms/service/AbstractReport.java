@@ -25,7 +25,6 @@ public abstract class AbstractReport<T> {
     protected Row tdetail;
 
     protected List<T> list = null;
-    protected String[] header = null;
 
     private CellStyle cellStyleDate;
 
@@ -36,7 +35,6 @@ public abstract class AbstractReport<T> {
             this.workbook = new HSSFWorkbook(is);
             Sheet ts = workbook.getSheet(getTemplateName());
             this.sh = ts;
-            this.header = getHeader();
 
             this.theader = ts.getRow(0);
             this.tdetail = ts.getRow(1);
@@ -47,7 +45,7 @@ public abstract class AbstractReport<T> {
 
     public abstract List<T> getList();
 
-    public abstract String[] getHeader();
+    public abstract int getHeaderLength();
 
     public abstract String getFileName();
 
@@ -63,10 +61,9 @@ public abstract class AbstractReport<T> {
 
     public void createReport() {
         this.list = getList();
-        ReportResponseDTO dto = null;
+
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             setCellStyle();
-            createHeader();
             createDetails();
             createFooter();
 
@@ -84,7 +81,8 @@ public abstract class AbstractReport<T> {
     }
 
     private ReportResponseDTO createResponseDto(ByteArrayOutputStream bos) throws IOException {
-        for (int col = 0; col < header.length; col++) {
+        this.sh.setAutoFilter(new CellRangeAddress(0, list.size() - 1, 0, this.getHeaderLength() - 1));
+        for (int col = 0; col < this.getHeaderLength(); col++) {
             this.sh.autoSizeColumn(col);
         }
         workbook.write(bos);
@@ -92,21 +90,10 @@ public abstract class AbstractReport<T> {
         return new ReportResponseDTO(new String(Base64.getEncoder().encode(bytes)), bytes, this.getFileName());
     }
 
-    public void createHeader() {
-        Row row = this.sh.createRow(0);
-        for (int col = 0; col < header.length; col++) {
-            Cell cell = row.createCell(col);
-            cell.setCellStyle(theader.getCell(col).getCellStyle());
-            cell.setCellValue(header[col]);
-        }
-        this.sh.setAutoFilter(new CellRangeAddress(0, list.size() - 1, 0, header.length - 1));
-    }
-
     public void createDetails() {
         for (int i = 0; i < list.size(); i++) {
             Row row = this.sh.createRow(i + 1);
             createRow(list.get(i), row);
-            // setCell(i + 1, header.length, row);
         }
     }
 
@@ -148,13 +135,6 @@ public abstract class AbstractReport<T> {
         Cell cell = row.createCell(col);
         cell.setCellStyle(tdetail.getCell(col).getCellStyle());
         cell.setCellValue(value);
-        return cell;
-    }
-
-    public Cell setCell(Instant value, int col, Row row) {
-        Cell cell = row.createCell(col);
-        cell.setCellStyle(cellStyleDate);
-        cell.setCellValue(Date.from(value));
         return cell;
     }
 
