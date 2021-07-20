@@ -10,10 +10,16 @@ import java.util.List;
 public class StudentReportImpl extends AbstractReport<Student> {
     final StudentRepository studentRepository;
 
-    public StudentReportImpl(StudentRepository studentRepository) {
+    public StudentReportImpl(StudentRepository studentRepository) throws Exception {
+        super();
         this.studentRepository = studentRepository;
 
         this.createReport();
+    }
+
+    @Override
+    public String getTemplateName() {
+        return "Student-Report";
     }
 
     @Override
@@ -39,15 +45,15 @@ public class StudentReportImpl extends AbstractReport<Student> {
     @Override
     public void createRow(Student student, Row row) {
     	int i = 0;
-        setCell(student.getId(), i++, row);
-        setCell(student.getLrn(), i++, row);
-        setCell(student.getBirthPlace(), i++, row);
-        setCell(student.getBirthDate(), i, row);
+        setCellt(student.getId(), i++, row);
+        setCellt(student.getLrn(), i++, row);
+        setCellt(student.getBirthPlace(), i++, row);
+        setCellt(student.getBirthDate(), i, row);
     }
 
     public void createFooter() {
         Row row = sh.createRow(list.size() + 1);
         // double totalAmount = list.stream().mapToDouble(item -> item.getAmount().doubleValue()).sum();
-        this.setCell(list.size(), 1, row);
+        this.setCellt(list.size(), 1, row);
     }
 }

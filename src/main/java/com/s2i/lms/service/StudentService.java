@@ -51,9 +51,9 @@ public interface StudentService {
      * @param id the id of the entity.
      */
     void delete(Long id);
-    
+
     List<StudentDTO> findAll();
-    
-    
-    ReportResponseDTO getReportResponseDTO();
+
+
+    ReportResponseDTO getReportResponseDTO() throws Exception;
 }

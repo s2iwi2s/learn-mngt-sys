@@ -8,8 +8,7 @@ import org.apache.poi.ss.util.CellUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Base64;
@@ -22,6 +21,8 @@ public abstract class AbstractReport<T> {
 
     protected final Workbook workbook;
     protected final Sheet sh;
+    protected Row theader;
+    protected Row tdetail;
 
     protected List<T> list = null;
     protected String[] header = null;
@@ -30,10 +31,18 @@ public abstract class AbstractReport<T> {
 
     private ReportResponseDTO reportResponseDTO = null;
 
-    public AbstractReport() {
-        this.workbook = new HSSFWorkbook();
-        this.sh = workbook.createSheet();
-        this.header = getHeader();
+    public AbstractReport() throws Exception {
+        try (InputStream is = new FileInputStream(new File(this.getClass().getClassLoader().getResource("sheet_model.xls").getPath()))) {
+            this.workbook = new HSSFWorkbook(is);
+            Sheet ts = workbook.getSheet(getTemplateName());
+            this.sh = ts;
+            this.header = getHeader();
+
+            this.theader = ts.getRow(0);
+            this.tdetail = ts.getRow(1);
+        } catch (IOException e) {
+            throw new Exception("Invalid template sheet_model.xls");
+        }
     }
 
     public abstract List<T> getList();
@@ -41,6 +50,8 @@ public abstract class AbstractReport<T> {
     public abstract String[] getHeader();
 
     public abstract String getFileName();
+
+    public abstract String getTemplateName();
 
     public abstract void createRow(T item, Row row);
 
@@ -52,6 +63,7 @@ public abstract class AbstractReport<T> {
 
     public void createReport() {
         this.list = getList();
+        ReportResponseDTO dto = null;
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             setCellStyle();
             createHeader();
@@ -75,7 +87,6 @@ public abstract class AbstractReport<T> {
         for (int col = 0; col < header.length; col++) {
             this.sh.autoSizeColumn(col);
         }
-
         workbook.write(bos);
         byte[] bytes = bos.toByteArray();
         return new ReportResponseDTO(new String(Base64.getEncoder().encode(bytes)), bytes, this.getFileName());
@@ -85,9 +96,8 @@ public abstract class AbstractReport<T> {
         Row row = this.sh.createRow(0);
         for (int col = 0; col < header.length; col++) {
             Cell cell = row.createCell(col);
+            cell.setCellStyle(theader.getCell(col).getCellStyle());
             cell.setCellValue(header[col]);
-            CellUtil.setAlignment(cell, HorizontalAlignment.CENTER);
-            this.sh.autoSizeColumn(col);
         }
         this.sh.setAutoFilter(new CellRangeAddress(0, list.size() - 1, 0, header.length - 1));
     }
@@ -107,9 +117,23 @@ public abstract class AbstractReport<T> {
         return cell;
     }
 
+    public Cell setCellt(String value, int col, Row row) {
+        Cell cell = row.createCell(col);
+        cell.setCellValue(value);
+        cell.setCellStyle(tdetail.getCell(col).getCellStyle());
+        return cell;
+    }
+
     public Cell setCell(double value, int col, Row row) {
         Cell cell = row.createCell(col);
         cell.setCellValue(value);
+        return cell;
+    }
+
+    public Cell setCellt(double value, int col, Row row) {
+        Cell cell = row.createCell(col);
+        cell.setCellValue(value);
+        cell.setCellStyle(tdetail.getCell(col).getCellStyle());
         return cell;
     }
 
@@ -120,9 +144,23 @@ public abstract class AbstractReport<T> {
         return cell;
     }
 
+    public Cell setCellt(LocalDate value, int col, Row row) {
+        Cell cell = row.createCell(col);
+        cell.setCellStyle(tdetail.getCell(col).getCellStyle());
+        cell.setCellValue(value);
+        return cell;
+    }
+
     public Cell setCell(Instant value, int col, Row row) {
         Cell cell = row.createCell(col);
         cell.setCellStyle(cellStyleDate);
+        cell.setCellValue(Date.from(value));
+        return cell;
+    }
+
+    public Cell setCellt(Instant value, int col, Row row) {
+        Cell cell = row.createCell(col);
+        cell.setCellStyle(tdetail.getCell(col).getCellStyle());
         cell.setCellValue(Date.from(value));
         return cell;
     }

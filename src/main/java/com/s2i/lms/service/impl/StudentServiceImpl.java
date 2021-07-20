@@ -84,7 +84,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public ReportResponseDTO getReportResponseDTO() {
+	public ReportResponseDTO getReportResponseDTO() throws Exception {
 		return new StudentReportImpl(this.studentRepository).getReportResponseDTO();
 	}
 }

@@ -191,7 +191,7 @@ public class StudentResource {
     }
 
     @GetMapping("/students/report")
-    public ResponseEntity<ReportResponseDTO> report() {
+    public ResponseEntity<ReportResponseDTO> report() throws Exception {
         log.debug("REST request to get ReportResponseDTO");
         ReportResponseDTO dto = studentService.getReportResponseDTO();
         return ResponseEntity.ok().body(dto);
