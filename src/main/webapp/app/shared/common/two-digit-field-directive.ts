@@ -20,6 +20,7 @@ export class TwoDigitFieldDirective {
 
   @HostListener('change', ['$event'])
   onChange(event: KeyboardEvent) {
+    console.log('event.ctrlKey:', event.ctrlKey);
     this.setNumberValue();
   }
 
@@ -28,7 +29,7 @@ export class TwoDigitFieldDirective {
     let trimmedText = value.replace(/[^0-9.]/g, '');
     trimmedText = trimmedText === '' ? '0' : trimmedText;
 
-    this.el.nativeElement.value = (+trimmedText).toFixed(2);
+    this.el.nativeElement.value = this.round(+trimmedText).toFixed(2);
   }
 
   @HostListener('keydown', ['$event'])
@@ -37,15 +38,19 @@ export class TwoDigitFieldDirective {
     if (this.specialKeys.indexOf(event.key) !== -1) {
       return;
     }
-    if (event.ctrlKey) {
-      if (event.key.toLowerCase() === 'a' || event.key.toLowerCase() === 'c' || event.key.toLowerCase() === 'v') {
-        return;
-      }
+    if (event.ctrlKey || event.altKey) {
+      return;
     }
 
     let current: string = this.el.nativeElement.value;
-    const position = this.el.nativeElement.selectionStart;
+    const position: number = this.el.nativeElement.selectionStart;
+    const idx: number = current.indexOf('.');
+
+    // console.log('position:', position);
+    // console.log('current.length:', current.length);
+    // console.log('indexOf:', idx);
     const next: string = [current.slice(0, position), event.key === 'Decimal' ? '.' : event.key, current.slice(position)].join('');
+
     if (next && !String(next).match(this.regex)) {
       event.preventDefault();
     }
@@ -59,5 +64,10 @@ export class TwoDigitFieldDirective {
         event.preventDefault();
       }
     }
+  }
+
+  round(num: number): number {
+    const m = Number((Math.abs(num) * 100).toPrecision(15));
+    return (Math.round(m) / 100) * Math.sign(num);
   }
 }
