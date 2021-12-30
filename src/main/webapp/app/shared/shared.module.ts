@@ -11,6 +11,8 @@ import { FormatMediumDatePipe } from './date/format-medium-date.pipe';
 import { SortByDirective } from './sort/sort-by.directive';
 import { SortDirective } from './sort/sort.directive';
 import { ItemCountComponent } from './pagination/item-count.component';
+import {DebounceKeyupDirective} from "app/shared/common/debounce-keyup.directive";
+import {TwoDigitFieldDirective} from "app/shared/common/two-digit-field-directive";
 
 @NgModule({
   imports: [SharedLibsModule],
@@ -25,7 +27,9 @@ import { ItemCountComponent } from './pagination/item-count.component';
     FormatMediumDatePipe,
     SortByDirective,
     SortDirective,
-    ItemCountComponent
+    ItemCountComponent,
+    DebounceKeyupDirective,
+    TwoDigitFieldDirective,
   ],
   exports: [
     SharedLibsModule,
@@ -39,7 +43,9 @@ import { ItemCountComponent } from './pagination/item-count.component';
     FormatMediumDatePipe,
     SortByDirective,
     SortDirective,
-    ItemCountComponent
+    ItemCountComponent,
+    DebounceKeyupDirective,
+    TwoDigitFieldDirective,
   ],
 })
 export class SharedModule { }

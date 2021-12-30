@@ -56,4 +56,10 @@ export class ImageStoreComponent implements OnInit {
   doExport(): void {
     this.exportService.export(['1', '2', '3', '4', '5'])
   }
+
+
+  public handleDebouncedKeyUp(event: any): void {
+    // console.log(`[handleDebouncedKeyUp] value: ${event.target.value}`);
+    this.loadAll();
+  }
 }
