@@ -1,10 +1,10 @@
 # LearnMngtSys
 
 ## Features/Code chunks ##
-* Abstract pdf report sample
-* Upload file using base 64
-* Export pdf in angular under Report menu
-* convert outlook msg to pdf sample code only. No ui available
+* Abstract pdf report sample - Report menu
+* Upload file using base 64 - Entities/ImageStore
+* Stitch and Export pdf using base 64 data in angular - Entities/ImageStore Export button
+* Convert outlook msg to pdf sample code only. No ui available
 
 
 ---

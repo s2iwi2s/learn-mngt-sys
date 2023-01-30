@@ -39,6 +39,7 @@ export class StudentReportComponent implements OnInit {
     this.isLoading = true;
     const formData = this.searchForm.value;
     console.log('formData=>', formData);
+    /*
     if (!formData.companyId || !formData.toDate) {
       Swal.fire({
         text: 'Invalid request',
@@ -47,6 +48,7 @@ export class StudentReportComponent implements OnInit {
       this.isLoading = false;
       return;
     }
+    */
     this.reportsServceService.studentReport({ companyId: formData.companyId, fromDate: formData.fromDate, toDate: formData.toDate })
       .subscribe((res: HttpResponse<IReportDto>) => {
         const response = res.body;
