@@ -1,10 +1,18 @@
 # LearnMngtSys
 
-## Features ##
-* Abstract pdf report
-* convert outlook msg to pdf
-* image upload using base 64
-* export pdf
+## Features/Code chunks ##
+* Abstract pdf report sample
+* Upload file using base 64
+* Export pdf in angular under Report menu
+* convert outlook msg to pdf sample code only. No ui available
+
+
+---
+### Compile and deploy your project:
+```editorconfig
+mvnw package -Pprod verify jib:dockerBuild -DskipTests
+docker compose -f src/main/docker/app.yml up
+```
 
 ---
 
@@ -30,16 +38,11 @@ docker run --network=my-network s2iwi2s/lms
 ```
 
 ---
-### Compile and deploy your jhipster project, you can use these commands:
-```editorconfig
-mvnw package -Pprod verify jib:dockerBuild -DskipTests
-docker compose -f src/main/docker/app.yml up
-```
----
 ### Building docker image with jhipster monolith app and pushing to my dockerhub
 1. Login to your new registry with command : docker login
 2. Tag your image to push using : docker tag learnmngtsys s2iwi2s/lms:latest
 3. Push the image using : docker push s2iwi2s/lms:latest
+
 ```editorconfig
 docker login
 docker tag learnmngtsys s2iwi2s/lms:latest
@@ -48,7 +51,7 @@ docker push s2iwi2s/lms:latest
 ---
 
 
-This application was generated using JHipster 7.0.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.0.1](https://www.jhipster.tech/documentation-archive/v7.0.1).
+#This application was generated using JHipster 7.0.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.0.1](https://www.jhipster.tech/documentation-archive/v7.0.1).#
 
 ## Development
 

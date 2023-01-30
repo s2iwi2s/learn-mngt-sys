@@ -12,6 +12,10 @@
     <name>Learn Mngt Sys</name>
 
     <repositories>
+    	<repository>
+    		<id>groupdocs</id>
+    		<url>https://releases.groupdocs.com/java/repo</url>
+    	</repository>
         <!-- jhipster-needle-maven-repository -->
     </repositories>
 
@@ -328,6 +332,12 @@
             <artifactId>groupdocs-conversion</artifactId>
             <version>22.3</version> 
         </dependency>
+        <dependency>
+		    <groupId>net.sourceforge.tess4j</groupId>
+		    <artifactId>tess4j</artifactId>
+		    <version>5.5.0</version>
+		</dependency>
+		        
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
 

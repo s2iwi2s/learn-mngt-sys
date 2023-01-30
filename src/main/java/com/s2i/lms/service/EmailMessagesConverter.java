@@ -1,4 +1,4 @@
-package com.imc.demurrage.service.service;
+package com.s2i.lms.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
