@@ -4,11 +4,23 @@
 * Abstract pdf report sample - Report menu
 * Upload file using base 64 - Entities/ImageStore
 * Stitch and Export pdf using base 64 data in angular - Entities/ImageStore Export button
-* Convert outlook msg to pdf sample code only. No ui available
+* Convert outlook msg to pdf sample code only(EmailMessagesConverter.java). No ui available
+* CSV
+* Debounce on Keyup
 
 
 ---
 ### Compile and deploy your project:
+
+#### Run locally
+```editorconfig
+mvnw
+docker compose -f src/main/docker/postgresql.yml up -d
+
+```
+
+
+#### Deploy in docker
 ```editorconfig
 mvnw package -Pprod verify jib:dockerBuild -DskipTests
 docker compose -f src/main/docker/app.yml up
@@ -16,7 +28,7 @@ docker compose -f src/main/docker/app.yml up
 
 ---
 
-### JHipster and Docker commands
+### Etc... JHipster and Docker commands
 
 ```
 jhipster jdl jhipster-jdl.jdl
