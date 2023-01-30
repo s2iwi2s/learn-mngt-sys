@@ -1,5 +1,11 @@
 # LearnMngtSys
 
+## Features ##
+* Abstract pdf report
+* convert outlook msg to pdf
+* image upload using base 64
+* export pdf
+
 ---
 
 ### JHipster and Docker commands
