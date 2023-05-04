@@ -20,6 +20,10 @@ logging:
     org.hibernate.SQL: DEBUG
     com.s2i.lms: DEBUG
 
+eureka:
+  client:
+    enabled: false
+
 spring:
   devtools:
     restart:

@@ -1,0 +1,32 @@
+
+POST http://localhost:8080/api/authenticate
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin",
+  "rememberMe": true
+}
+
+> {%
+client.global.set("auth_token", response.body.id_token);
+%}
+###
+
+GET http://localhost:8080/api/employee/age/equal/40
+Authorization: Bearer {{auth_token}}
+
+###
+
+GET http://localhost:8080/api/employee/age/lessThan/40
+Authorization: Bearer {{auth_token}}
+
+<> 2023-05-03T185940.500.json
+
+###
+
+GET http://localhost:8080/api/employee/age/greaterThan/40
+Authorization: Bearer {{auth_token}}
+
+###
+
