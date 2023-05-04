@@ -1,6 +1,7 @@
 package com.s2i.lms.web.rest;
 
 import com.s2i.lms.domain.Employee;
+import com.s2i.lms.service.EmployeeService;
 import com.s2i.lms.service.impl.EmployeeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +18,9 @@ import java.util.List;
 public class EmployeeResource {
     Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private final EmployeeServiceImpl employeeService;
+    private final EmployeeService employeeService;
 
-    public EmployeeResource(EmployeeServiceImpl employeeService) {
+    public EmployeeResource(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
