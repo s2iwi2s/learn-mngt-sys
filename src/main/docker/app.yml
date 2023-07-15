@@ -17,19 +17,9 @@ services:
     networks:
         - my-network
   learnmngtsys-postgresql:
-    image: postgres:13.2
-    volumes:
-      - ~/volumes/jhipster/LearnMngtSys/postgresql/:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=LearnMngtSys
-      - POSTGRES_PASSWORD=
-      - POSTGRES_HOST_AUTH_METHOD=trust
-    # If you want to expose these ports outside your dev PC,
-    # remove the "127.0.0.1:" prefix
-    ports:
-      - 127.0.0.1:5432:5432
-    networks:
-        - my-network
+    extends:
+      file: ./postgresql.yml
+      service: learnmngtsys-postgresql
 networks:
   my-network:
     external: true

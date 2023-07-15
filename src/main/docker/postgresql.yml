@@ -2,17 +2,22 @@
 version: '3.8'
 services:
   learnmngtsys-postgresql:
-    image: postgres:13.2
-    volumes:
-      - ~/volumes/jhipster/LearnMngtSys/postgresql/:/var/lib/postgresql/data/
+    image: postgres:latest
+    # volumes:
+    #   - ~/volumes/jhipster/LearnMngtSys/postgresql/:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=LearnMngtSys
       - POSTGRES_PASSWORD=
       - POSTGRES_HOST_AUTH_METHOD=trust
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready -U $${POSTGRES_USER}' ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     # If you want to expose these ports outside your dev PC,
     # remove the "127.0.0.1:" prefix
     ports:
-      - 127.0.0.1:5432:5432
+      - 5432:5432
     networks:
         - my-network
 networks:
