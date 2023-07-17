@@ -411,6 +411,24 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>com.github.ekryd.echo-maven-plugin</groupId>
+                    <artifactId>echo-maven-plugin</artifactId>
+                    <version>1.2.0</version>
+                    <executions>
+                        <execution>
+                            <phase>clean</phase>
+                            <goals>
+                                <goal>echo</goal>
+                            </goals>
+                            <configuration>
+                                <message>env=${env}</message>
+                                <message>DOCKER_REGISTRY_USER=${env.DOCKER_REGISTRY_USER}</message>
+                                <message>DOCKER_REGISTRY_PWD=${env.DOCKER_REGISTRY_PWD}</message>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>${maven-checkstyle.version}</version>
