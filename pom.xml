@@ -605,13 +605,13 @@
                                     <os>linux</os>
                                 </platform>
                             </platforms>
+                        </from>
+                        <to>
+                            <image>learnmngtsys:latest</image>
                             <auth>
                                 <username>${env.DOCKER_REGISTRY_USER}</username>
                                 <password>${env.DOCKER_REGISTRY_PWD}</password>
                             </auth>
-                        </from>
-                        <to>
-                            <image>learnmngtsys:latest</image>
                         </to>
                         <container>
                             <entrypoint>
