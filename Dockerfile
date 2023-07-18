@@ -1,4 +1,4 @@
-FROM openjdk:11.0.6-stretch
+FROM adoptopenjdk:11-jre-hotspot
 VOLUME /tmp
 ADD target/learn-mngt-sys-0.0.1-SNAPSHOT.jar /tmp/app.jar
 # ADD ./src/main/docker/jib/entrypoint.sh .
