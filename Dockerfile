@@ -2,7 +2,7 @@ FROM openjdk:11
 WORKDIR  /app
 COPY ./target/learn-mngt-sys-0.0.1-SNAPSHOT.jar ./
 COPY ./src/main/docker/jib/entrypoint.sh ./
-RUN  chmod  +x  /entrypoint.sh
+RUN  chmod  +x  ./entrypoint.sh
 EXPOSE 8181
 ENTRYPOINT ["/bin/bash", "-c", "./entrypoint.sh"]
 #ENTRYPOINT ["java","-Djava.security.egd=file:/dev/urandom","-jar","/tmp/app.jar"]
