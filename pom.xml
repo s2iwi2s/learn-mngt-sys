@@ -358,11 +358,10 @@
                         </goals>
                         <configuration>
                             <message>
-                                env=${env}
-                                java.version=${java.version}
-                                maven.version=${maven.version}
-                                DOCKER_REGISTRY_USER=${env.DOCKER_REGISTRY_USER}
-                                DOCKER_REGISTRY=${env.DOCKER_REGISTRY_PWD}
+java.version=${java.version}
+maven.version=${maven.version}
+node.version=${node.version}
+npm.version=${npm.version}
                             </message>
                             <level>INFO</level>
                         </configuration>
