@@ -357,11 +357,12 @@
                             <goal>echo</goal>
                         </goals>
                         <configuration>
-                            <message>
+                            <message>------------------------------------------------------------------------
 java.version=${java.version}
 maven.version=${maven.version}
 node.version=${node.version}
 npm.version=${npm.version}
+------------------------------------------------------------------------
                             </message>
                             <level>INFO</level>
                         </configuration>
