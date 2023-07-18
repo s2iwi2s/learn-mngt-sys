@@ -1,6 +1,6 @@
 FROM openjdk:11
 WORKDIR  /app
-COPY ./target/learn-mngt-sys-0.0.1-SNAPSHOT.jar ./
+COPY ./target/learn-mngt-sys-0.0.1-SNAPSHOT.jar ./app.jar
 COPY ./src/main/docker/jib/entrypoint.sh ./
 RUN  chmod  +x  ./entrypoint.sh
 EXPOSE 8181
