@@ -9,4 +9,5 @@ echo "SPRING_DATASOURCE_URL=>${SPRING_DATASOURCE_URL}"
 echo "SPRING_LIQUIBASE_URL=>${SPRING_LIQUIBASE_URL}"
 pwd
 ls -la
-exec java ${JAVA_OPTS} -noverify -XX:+AlwaysPreTouch -Djava.security.egd=file:/dev/./urandom -jar ./app/app.jar "$@"
+ll /app
+exec java ${JAVA_OPTS} -noverify -XX:+AlwaysPreTouch -Djava.security.egd=file:/dev/./urandom -jar /app/app.jar "$@"
