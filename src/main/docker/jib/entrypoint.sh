@@ -8,6 +8,8 @@ echo "JHIPSTER_SLEEP=>${JHIPSTER_SLEEP}"
 echo "SPRING_DATASOURCE_URL=>${SPRING_DATASOURCE_URL}"
 echo "SPRING_LIQUIBASE_URL=>${SPRING_LIQUIBASE_URL}"
 pwd
+echo "ls -la>"
 ls -la
-ll /app
+echo "ls /app>"
+ls /app
 exec java ${JAVA_OPTS} -noverify -XX:+AlwaysPreTouch -Djava.security.egd=file:/dev/./urandom -jar /app/app.jar "$@"
