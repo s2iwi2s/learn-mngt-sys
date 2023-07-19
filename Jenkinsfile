@@ -1,61 +1,59 @@
-#!/usr/bin/env groovy
-
-node {
-    stage('checkout') {
-        checkout scm
+def img
+pipeline {
+    environment {
+        registry = "s2iwi2s/lms" //To push an image to Docker Hub, you must first name your local image using your Docker Hub username and the repository name that you created through Docker Hub on the web.
+        registryUrl = "https://registry.hub.docker.com "
+        registryCredential = 'docker-hub-login'
+        dockerImage = ''
+        dockerImageArgs = "--build-arg=BASE_IMAGE=openjdk:11 --build-arg=JAVA_OPTS='-Xmx512m -Xms256m' --build-arg=JHIPSTER_SLEEP=3 --build-arg=SPRING_PROFILES_ACTIVE=prod --build-arg=SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.110.136:5432/LearnMngtSys --build-arg=SPRING_LIQUIBASE_URL=jdbc:postgresql://192.168.110.136:5432/LearnMngtSys ."
     }
-
-    docker.image('jhipster/jhipster:v8.0.0-beta.1').inside('-u jhipster -e MAVEN_OPTS="-Duser.home=./"') {
-        stage('check java') {
-            sh "java -version"
+    agent any
+    stages {
+        stage('checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/s2iwi2s/learn-mngt-sys.git'
+            }
         }
 
         stage('clean') {
-            sh "chmod +x mvnw"
-            sh "./mvnw -ntp clean -P-webapp"
-        }
-        stage('nohttp') {
-            sh "./mvnw -ntp checkstyle:check"
-        }
-
-        stage('install tools') {
-            sh "./mvnw -ntp com.github.eirslett:frontend-maven-plugin:install-node-and-npm@install-node-and-npm"
-        }
-
-        stage('npm install') {
-            sh "./mvnw -ntp com.github.eirslett:frontend-maven-plugin:npm"
-        }
-        stage('backend tests') {
-            try {
-                sh "./mvnw -ntp verify -P-webapp"
-            } catch(err) {
-                throw err
-            } finally {
-                junit '**/target/surefire-reports/TEST-*.xml,**/target/failsafe-reports/TEST-*.xml'
+            steps {
+                sh "chmod +x mvnw"
+                sh "./mvnw -version"
+                sh "./mvnw -ntp clean"
             }
         }
 
-        stage('frontend tests') {
-            try {
-               sh "npm install"
-               sh "npm test"
-            } catch(err) {
-                throw err
-            } finally {
-                junit '**/target/test-results/TESTS-results-jest.xml'
+        stage ('Stop previous running container'){
+            steps{
+                sh returnStatus: true, script: 'docker stop $(docker ps -a | grep ${JOB_NAME} | awk \'{print $1}\')'
+                sh returnStatus: true, script: 'docker rmi $(docker images | grep ${registry} | awk \'{print $3}\') --force' //this will delete all images
+                sh returnStatus: true, script: 'docker rm ${JOB_NAME}'
             }
         }
 
-        stage('packaging') {
-            sh "./mvnw -ntp verify -P-webapp -Pprod -DskipTests"
-            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+        stage('Packaging as jar') {
+            steps {
+                sh "./mvnw -ntp -Pprod,no-liquibase verify -DskipTests"
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+            }
         }
-    }
 
-    def dockerImage
-    stage('publish docker') {
-        // A pre-requisite to this step is to setup authentication to the docker registry
-        // https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin#authentication-methods
-        sh "./mvnw -ntp -Pprod verify jib:build"
+        stage('Build Image') {
+            steps {
+                script {
+                    sshagent(['docker-host-key']) {
+                        img = registry + ":${env.BUILD_ID}"
+                        println ("${img}")
+                        dockerImage = docker.build("${img}", "${dockerImageArgs}")
+                    }
+                }
+            }
+        }
+
+        stage('Test - Run Docker Container on Jenkins node') {
+           steps {
+                sh label: '', script: "docker run -d --name ${JOB_NAME} -p 8181:8181 ${img}"
+			}
+        }
     }
 }

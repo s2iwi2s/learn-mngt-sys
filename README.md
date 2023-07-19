@@ -14,8 +14,7 @@
 
 #### Run locally
 ```editorconfig
-mvnw
-docker compose -f src/main/docker/postgresql.yml up -d
+mvnw docker compose -f src/main/docker/postgresql.yml up -d
 
 ```
 
