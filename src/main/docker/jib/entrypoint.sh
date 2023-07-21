@@ -11,5 +11,7 @@ pwd
 echo "ls -la>"
 ls -la
 echo "ls /app>"
-ls /app
+ls /apps
+echo "ls /app/libs>"
+ls /app/libs
 exec java ${JAVA_OPTS} -noverify -XX:+AlwaysPreTouch -Djava.security.egd=file:/dev/./urandom -jar /app/app.jar "$@"

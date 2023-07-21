@@ -85,6 +85,7 @@
         <jib-maven-plugin.version>3.3.2</jib-maven-plugin.version>
         <jib-maven-plugin.architecture>amd64</jib-maven-plugin.architecture>
         <jib-maven-plugin.image>adoptopenjdk:11-jre-hotspot</jib-maven-plugin.image>
+
         <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
         <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
         <sonar-maven-plugin.version>3.8.0.2131</sonar-maven-plugin.version>
@@ -631,11 +632,22 @@ npm.version=${npm.version}
                         </from>
                         <to>
                             <image>learnmngtsys:latest</image>
+                            <!--
                             <auth>
                                 <username>${env.DOCKER_REGISTRY_USER}</username>
                                 <password>${env.DOCKER_REGISTRY_PWD}</password>
                             </auth>
+                            <credHelper>${env.DOCKER_REGISTRY_CRED}</credHelper>
+                            -->
                         </to>
+                        <dockerClient>
+                            <executable>docker</executable>
+                            <!--
+                            <environment>
+                                <DOCKER_HOST>${env.DOCKER_REGISTRY_URL}</DOCKER_HOST>
+                            </environment>
+                            -->
+                        </dockerClient>
                         <container>
                             <entrypoint>
                                 <shell>bash</shell>
