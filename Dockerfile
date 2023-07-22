@@ -1,7 +1,6 @@
 ARG BASE_IMAGE
 
 FROM $BASE_IMAGE
-WORKDIR  /app
 
 ARG JAVA_OPTS
 ARG JHIPSTER_SLEEP
@@ -15,12 +14,14 @@ ENV SPRING_PROFILES_ACTIVE $SPRING_PROFILES_ACTIVE
 ENV SPRING_DATASOURCE_URL $SPRING_DATASOURCE_URL
 ENV SPRING_LIQUIBASE_URL $SPRING_LIQUIBASE_URL
 
-COPY ./target/learn-mngt-sys-0.0.1-SNAPSHOT.jar ./app.jar
+VOLUME /tmp
+
+COPY ./target/learn-mngt-sys-0.0.1-SNAPSHOT.jar /tmp/app.jar
 #COPY ./src/main/docker/jib/env_setup.sh ./
 COPY ./src/main/docker/jib/entrypoint.sh ./
-
+RUN pwd
 #RUN  chmod  +x  ./env_setup.sh
-RUN  chmod  +x  ./entrypoint.sh
+RUN chmod  +x  ./entrypoint.sh
 
 EXPOSE 8181
 

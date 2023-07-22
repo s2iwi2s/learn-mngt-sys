@@ -38,7 +38,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://my.ubuntu.postgresql:5432/LearnMngtSys
     username: LearnMngtSys
-    password:
+    password: LearnMngtSys
     hikari:
       poolName: Hikari
       auto-commit: false

@@ -3,11 +3,11 @@ version: '3.8'
 services:
   learnmngtsys-postgresql:
     image: postgres:latest
-    # volumes:
-    #   - ~/volumes/jhipster/LearnMngtSys/postgresql/:/var/lib/postgresql/data/
+    volumes:
+      - ~/postgres/lms/:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=LearnMngtSys
-      - POSTGRES_PASSWORD=
+      - POSTGRES_PASSWORD=LearnMngtSys
       - POSTGRES_HOST_AUTH_METHOD=trust
     healthcheck:
       test: [ 'CMD-SHELL', 'pg_isready -U $${POSTGRES_USER}' ]
