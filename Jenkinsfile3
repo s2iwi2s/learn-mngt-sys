@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+    environment {
+        REGISTRY_NAME = "s2iwi2s/lms"
+        IMG_NAME = "${REGISTRY_NAME}:47"
+
+        DHOST = 'stoi@192.168.44.130'
+        DOCKER_VM_CRED = "photon-host-root-key"
+
+        stop_container = "docker stop ${JOB_NAME}"
+        del_cont_name = "docker rm ${JOB_NAME}"
+        del_images = 'docker image prune -a --force'
+        drun = "docker run -d --name ${JOB_NAME} -p 8181:8181 --network pgnetwork $IMG_NAME"
+    }
+
+    stages {
+        stage("Test Photon VM") {
+            steps {
+                sshagent(["${DOCKER_VM_CRED}"]) {
+                    sh 'ssh -o StrictHostKeyChecking=no ${DHOST} uname -a'
+                }
+            }
+        }
+
+        stage ('Stop previous running container'){
+            steps{
+                sshagent(["${DOCKER_VM_CRED}"]) {
+                    sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no $DHOST ${stop_container} "
+                    sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no $DHOST ${del_cont_name}"
+                    sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no $DHOST ${del_images}"
+                }
+            }
+        }
+
+        stage('Deploy to docker') {
+            steps {
+                echo "***************************************"
+                echo "Deploy to docker: ${DHOST}"
+                script {
+                    sshagent(["${DOCKER_VM_CRED}"]) {
+                        sh "ssh -o StrictHostKeyChecking=no $DHOST ${drun}"
+                    }
+                }
+            }
+        }
+    }
+}

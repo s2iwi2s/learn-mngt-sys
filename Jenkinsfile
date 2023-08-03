@@ -1,22 +1,49 @@
-def img
 pipeline {
-    environment {
-        registry = "s2iwi2s/lms" //To push an image to Docker Hub, you must first name your local image using your Docker Hub username and the repository name that you created through Docker Hub on the web.
-        registryUrl = "https://registry.hub.docker.com "
-        registryCredential = 'docker-hub-login'
-        dockerImage = ''
-        dockerImageArgs = "--build-arg=BASE_IMAGE=openjdk:11 --build-arg=JAVA_OPTS='-Xmx512m -Xms256m' --build-arg=JHIPSTER_SLEEP=3 --build-arg=SPRING_PROFILES_ACTIVE=prod --build-arg=SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.110.136:5432/LearnMngtSys --build-arg=SPRING_LIQUIBASE_URL=jdbc:postgresql://192.168.110.136:5432/LearnMngtSys ."
-    }
     agent any
+
+    environment {
+        JDK_VERSION = "JDK-11"
+        REGISTRY_NAME = "s2iwi2s/lms"
+        IMG_NAME = "${REGISTRY_NAME}:${env.BUILD_ID}"
+
+        REGISTRY_URL = 'https://registry.hub.docker.com'
+        REGISTRY_CREDENTIAL = 'docker-hub-login'
+
+        GIT_REPO = 'https://github.com/s2iwi2s/learn-mngt-sys.git'
+        GIT_BRANCH = 'main'
+
+        DHOST = 'stoi@192.168.44.129'
+        DOCKER_HOST = "tcp://localhost:2375"
+
+        DB_URL = "jdbc:postgresql://postgres-db:5432/LearnMngtSys"
+        JAVA_OPTIONS = "-Xmx512m -Xms256m"
+
+        IMAGE_ARGS = "--build-arg=BASE_IMAGE=openjdk:11 --build-arg=JAVA_OPTS='${JAVA_OPTIONS}' --build-arg=JHIPSTER_SLEEP=3 --build-arg=SPRING_PROFILES_ACTIVE=prod,api-docs --build-arg=SPRING_DATASOURCE_URL=${DB_URL} --build-arg=SPRING_LIQUIBASE_URL=${DB_URL} ."
+
+        dockerImage = ''
+    }
+
+    tools {
+        jdk "${JDK_VERSION}"
+    }
+
     stages {
+
+        /*stage('Show Env') {
+            steps {
+                sh 'printenv|sort'
+            }
+        }*/
+
         stage('checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/s2iwi2s/learn-mngt-sys.git'
+                git branch: GIT_BRANCH, url: GIT_REPO
             }
         }
 
         stage('clean') {
             steps {
+                sh "java -version"
                 sh "chmod +x mvnw"
                 sh "./mvnw -version"
                 sh "./mvnw -ntp clean"
@@ -26,8 +53,8 @@ pipeline {
         stage ('Stop previous running container'){
             steps{
                 sh returnStatus: true, script: 'docker stop $(docker ps -a | grep ${JOB_NAME} | awk \'{print $1}\')'
-                sh returnStatus: true, script: 'docker rmi $(docker images | grep ${registry} | awk \'{print $3}\') --force' //this will delete all images
-                sh returnStatus: true, script: 'docker rm ${JOB_NAME}'
+                sh returnStatus: true, script: 'docker rmi $(docker images | grep ${REGISTRY_NAME} | awk \'{print $3}\') --force' //this will delete all images
+                sh returnStatus: true, script: 'docker rm $JOB_NAME'
             }
         }
 
@@ -40,20 +67,33 @@ pipeline {
 
         stage('Build Image') {
             steps {
+                echo "********************************************************"
+                echo "Building our image: ${IMG_NAME}"
                 script {
-                    sshagent(['docker-host-key']) {
-                        img = registry + ":${env.BUILD_ID}"
-                        println ("${img}")
-                        dockerImage = docker.build("${img}", "${dockerImageArgs}")
+                    docker.withServer(DOCKER_HOST) {
+                        dockerImage = docker.build(IMG_NAME, IMAGE_ARGS)
                     }
                 }
             }
         }
 
-        stage('Test - Run Docker Container on Jenkins node') {
-           steps {
-                sh label: '', script: "docker run -d --name ${JOB_NAME} -p 8181:8181 ${img}"
-			}
+        stage('Deploy to docker') {
+            steps {
+                script {
+                    dockerImage.run("--name ${JOB_NAME} -p 8181:8181 --network pgnetwork")
+                }
+            }
+        }
+
+        stage('Push To DockerHub') {
+            steps {
+                echo "Push To DockerHub $REGISTRY_URL with $REGISTRY_CREDENTIAL"
+                script {
+                    docker.withRegistry(REGISTRY_URL, REGISTRY_CREDENTIAL) {
+                        dockerImage.push()
+                    }
+                }
+            }
         }
     }
 }
